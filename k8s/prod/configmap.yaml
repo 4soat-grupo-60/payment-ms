@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment-ms-configmap
+  namespace: payment-ms
+data:
+  PORT: "8080"

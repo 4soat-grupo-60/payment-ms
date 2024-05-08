@@ -1,0 +1,76 @@
+# name: Deploy to AWS
+
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-east-1
+
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+
+#       - name: Get ECR Secrets
+#         id: get-ecr-secrets
+#         uses: aws-actions/aws-secretsmanager-get-secrets@v1
+#         with:
+#           secret-ids: |
+#             prod/totem/ECR
+#             ECR_URL, prod/totem/ECR
+
+#       - name: Get DB Secrets
+#         id: get-db-secrets
+#         uses: aws-actions/aws-secretsmanager-get-secrets@v1
+#         with:
+#           secret-ids: |
+#             prod/totem/Postgresql
+#           parse-json-secrets: true
+
+#       - uses: actions/checkout@v3
+
+#       - name: Build, tag, and push image to Amazon ECR
+#         id: build-image
+#         env:
+#           IMAGE_TAG: ${{ github.sha }}
+#         run: |
+#           docker build -t $ECR_URL:$IMAGE_TAG -f ./docker/node/Dockerfile .
+#           docker push $ECR_URL:$IMAGE_TAG
+#           echo "image=$ECR_URL:$IMAGE_TAG" >> $GITHUB_ENV
+#           last_image="$ECR_URL:$IMAGE_TAG"
+#           echo "::set-output name=last_image::$last_image"
+
+#       - name: Replace Templates
+#         env:
+#           GENERATED_IMG_TAG: ${{ steps.build-image.outputs.last_image }}
+
+#         run: |
+#           sed s@**LATEST_IMAGE@$GENERATED_IMG_TAG@  ./k8s/prod/deployment.yaml.tmpl > k8s/prod/deployment.yaml
+#           sed s@**DB_HOST@$PROD_TOTEM_POSTGRESQL_HOST@  ./k8s/prod/secrets.yaml.tmpl > k8s/prod/secrets1.yaml.tmpl
+#           sed s@**DB_PORT@$PROD_TOTEM_POSTGRESQL_PORT@  ./k8s/prod/secrets1.yaml.tmpl > k8s/prod/secrets2.yaml.tmpl
+#           sed s@**DB_USER@$PROD_TOTEM_POSTGRESQL_USERNAME@  ./k8s/prod/secrets2.yaml.tmpl > k8s/prod/secrets3.yaml.tmpl
+#           sed s@**DB_PASS@$PROD_TOTEM_POSTGRESQL_PASSWORD@  ./k8s/prod/secrets3.yaml.tmpl > k8s/prod/secrets4.yaml.tmpl
+#           sed s@**DB_PATH@$PROD_TOTEM_POSTGRESQL_PATH@  ./k8s/prod/secrets4.yaml.tmpl > k8s/prod/secrets.yaml
+
+#       - name: Create kubeconfig
+#         run: aws eks update-kubeconfig --region us-east-1 --name totem-cluster
+
+#       - name: Kubernetes deployment
+#         run: |
+#           kubectl apply \
+#           -f k8s/prod/namespace.yaml \
+#           -f k8s/prod/configmap.yaml \
+#           -f k8s/prod/secrets.yaml \
+#           -f k8s/prod/deployment.yaml \
+#           -f k8s/prod/service.yaml \
+

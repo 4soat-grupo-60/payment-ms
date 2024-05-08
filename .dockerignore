@@ -1,0 +1,6 @@
+.gitignore
+application/node_modules
+docker/database/pgadmin
+docker/database/postgres
+.idea
+.vscode

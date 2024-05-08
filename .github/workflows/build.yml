@@ -1,0 +1,62 @@
+# name: Build
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     types: [opened, synchronize, reopened]
+
+# jobs:
+#   sonarcloud:
+#     name: SonarCloud
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+#       - name: SonarCloud Scan
+#         uses: SonarSource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+#   totem_ci:
+#     name: TOTEM CI
+#     services:
+#       postgres:
+#         image: postgres:latest
+#         env:
+#           POSTGRES_PASSWORD: totem
+#           POSTGRES_USER: totem
+#           POSTGRES_DB: totem
+#           POSTGRES_HOST: localhost
+#         ports:
+#           - 5432:5432
+#         options: >-
+#           --health-cmd pg_isready
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0
+#       - name: Setup Node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: "20.0"
+#       - name: Node Cache
+#         uses: actions/cache@v4
+#         id: cache
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-node-${{ hashFiles('./application/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
+#       - name: Install Dependencies
+#         working-directory: ./application
+#         run: npm ci
+

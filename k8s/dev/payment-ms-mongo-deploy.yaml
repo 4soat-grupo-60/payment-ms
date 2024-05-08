@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-ms-mongo
+  namespace: payment-ms
+  labels:
+    app: payment-ms-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-ms-mongo
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: payment-ms-mongo
+    spec:
+      volumes:
+      - name: payment-ms-mongo
+        persistentVolumeClaim:
+          claimName: payment-ms-mongo
+      containers:
+      - name: payment-ms-mongo
+        envFrom:
+        - configMapRef:
+            name: payment-ms-configmap
+        - secretRef:
+            name: payment-ms-mongo
+        image: mongo
+        imagePullPolicy: Always
+        workingDir: /application
+        #imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: payment-ms-mongo
+          mountPath: /application
+        ports:
+        - containerPort: 27017
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      imagePullSecrets:
+      - name: dockerhub
+      restartPolicy: Always
