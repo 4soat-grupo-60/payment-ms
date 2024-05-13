@@ -15,15 +15,12 @@
        - uses: actions/checkout@v4
          with:
            fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      
-       - name: Navigate to application directory
-         run:  cd application/ 
- 
+  
        - name: Install dependencies
          run: cd application/  && npm install
 
-       - name: Run unit tests
-         run: npm run test:unit
+       - name: Run tests
+         run: npm run test --prefix application/tests/domain/entities
 
        - name: SonarCloud Scan
          uses: SonarSource/sonarcloud-github-action@master
