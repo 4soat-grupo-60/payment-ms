@@ -20,7 +20,7 @@
          run: cd application/  && npm install
 
        - name: Run test
-         run: npm run test --prefix application/test/domain/entities
+         run:  cd application/  && npm run test --prefix application/test/domain/entities
 
        - name: SonarCloud Scan
          uses: SonarSource/sonarcloud-github-action@master
