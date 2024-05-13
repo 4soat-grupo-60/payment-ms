@@ -20,9 +20,12 @@
          uses: actions/setup-node@v2
          with:
            node-version: '14'
-           
+
        - name: Install dependencies
          run: cd application/  && npm install
+
+       - name: Install TypeScript definitions for Jest
+         run: npm i --save-dev @types/jest
 
        - name: Run test
          run:  cd application/  && npm run test 
