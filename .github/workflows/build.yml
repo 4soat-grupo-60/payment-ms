@@ -24,11 +24,8 @@
        - name: Install dependencies
          run: cd application/  && npm install
 
-       - name: Install TypeScript definitions for Jest
-         run: npm i --save-dev @types/jest
-
        - name: Run test
-         run:  cd application/  && npm run test 
+         run:  cd application/ && npm install && npm run test 
 
        - name: SonarCloud Scan
          uses: SonarSource/sonarcloud-github-action@master
