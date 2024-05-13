@@ -20,7 +20,7 @@
          run:  cd application/
 
        - name: Install dependencies
-         run: cd .. && npm install
+         run: cd .. && cd application/ && npm install
 
        - name: Run unit tests
          run: npm run test:unit
