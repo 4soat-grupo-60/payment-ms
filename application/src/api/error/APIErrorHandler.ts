@@ -1,23 +1,16 @@
 import { Class } from "type-fest";
-import { InvalidNameError } from "../../domain/error/InvalidNameError";
 import RecordNotFoundError from "../../domain/error/RecordNotFoundError";
-import InvalidCategoryError from "../../domain/error/InvalidCategoryError";
-import ProductInactiveError from "../../domain/error/ProductInactiveError";
+import InvalidPaymentStatusError from "../../domain/error/InvalidPaymentStatusError";
 
 const HTTP_STATUS_BAD_REQUEST = 400;
-const HTTP_STATUS_CONFLICT = 409;
 const HTTP_STATUS_NOT_FOUND = 404;
 const HTTP_INTERNAL_SERVER_ERROR = 500;
 export default class APIErrorHandler {
   static getBusinessErrors(): Map<Class<any>, number> {
     const errors = new Map<Class<any>, number>();
 
-    // Conflict errors
-    errors.set(ProductInactiveError, HTTP_STATUS_CONFLICT);
-
     // Bad request errors
-    errors.set(InvalidNameError, HTTP_STATUS_BAD_REQUEST);
-    errors.set(InvalidCategoryError, HTTP_STATUS_BAD_REQUEST);
+    errors.set(InvalidPaymentStatusError, HTTP_STATUS_BAD_REQUEST);
 
     // Not Found
     errors.set(RecordNotFoundError, HTTP_STATUS_NOT_FOUND);
@@ -56,3 +49,4 @@ export function handleAPIError(res: Response<any, any>, e: Error) {
     error: e.message,
   });
 }
+

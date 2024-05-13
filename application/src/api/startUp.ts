@@ -7,7 +7,7 @@ import "dotenv/config";
 
 import IAppRoute from "../interfaces/IAppRoute";
 import { DbConnection } from "../interfaces/dbconnection";
-import ProductRoute from "./routes/ProductRoute";
+import PaymentRoute from "./routes/PaymentRoute";
 
 export default class StartUp {
   private dbConnection: DbConnection;
@@ -39,7 +39,7 @@ export default class StartUp {
   }
 
   initRoutes() {
-    let routes: IAppRoute[] = [new ProductRoute(this.dbConnection)];
+    let routes: IAppRoute[] = [new PaymentRoute(this.dbConnection)];
 
     let port = process.env.PORT || 8080;
 
@@ -56,3 +56,4 @@ export default class StartUp {
     });
   }
 }
+

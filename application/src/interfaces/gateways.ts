@@ -1,11 +1,16 @@
-import { Product } from "../domain/entities/product";
-import { Category } from "../domain/value_object/category";
+import { Payment } from "../domain/entities/payment";
+import { PaymentGatewayResponse } from "../domain/value_object/paymentGatewayResponse";
+import { PaymentStatus } from "../domain/value_object/paymentStatus";
 
-export interface IProductGateway {
-  getProductsByCategory(category: Category): Promise<Array<Product>>;
-  getProductByIDs(ids: number[]): Promise<Array<Product>>;
-  getProducts(): Promise<Array<Product>>;
-  saveProduct(product: Product): Promise<Product>;
-  updateProduct(product: Product): Promise<Product>;
-  deleteProduct(id: string): Promise<void>;
+export interface IPaymentGatewayService {
+  create(): Promise<PaymentGatewayResponse>;
 }
+
+export interface IPaymentGateway {
+  getAll(): Promise<Payment[]>;
+  get(id: string): Promise<Payment>;
+  save(payment: Payment): Promise<Payment>;
+  getByIntegrationID(integrationID: string): Promise<Payment>;
+  updateStatus(id: string, paymentStatus: PaymentStatus): Promise<Payment>;
+}
+
