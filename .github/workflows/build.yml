@@ -17,10 +17,10 @@
            fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       
        - name: Navigate to application directory
-         run:  cd application/
+         run:  cd .. && cd application/ 
 
        - name: Install dependencies
-         run: cd .. && cd application/ && npm install
+         run: npm install
 
        - name: Run unit tests
          run: npm run test:unit
