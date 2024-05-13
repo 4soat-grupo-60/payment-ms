@@ -25,7 +25,7 @@
          run: cd application/  && npm install
 
        - name: Run test
-         run:  cd application/ && npm install && npm run test 
+         run:  cd application/ && npm install && npm i --save-dev @types/jest && npm run test 
 
        - name: SonarCloud Scan
          uses: SonarSource/sonarcloud-github-action@master
