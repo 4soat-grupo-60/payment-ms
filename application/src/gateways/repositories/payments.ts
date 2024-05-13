@@ -34,12 +34,20 @@ export class PaymentGateway implements IPaymentGateway {
       await this.repositoryData.connect();
       const database = this.repositoryData.db("payments-ms");
       const payments = database.collection("payments");
-      const query = { id: id };
 
-      const cursor = payments.find(query);
-      const result = await cursor.toArray();
+      const result = await payments.findOne({ _id: new ObjectId(id) });
 
-      return PaymentMapper.map(result.map[0]);
+      const resultPayment = {
+        _id: result._id,
+        status: result.status,
+        paid_at: result.paid_at,
+        order_id: result.order_id,
+        integration_id: result.integration_id,
+        qr_code: result.qr_code,
+        total: result.total,
+      };
+
+      return PaymentMapper.map({ _id: result._id, ...resultPayment });
     } finally {
       await this.repositoryData.close();
     }
@@ -126,9 +134,18 @@ export class PaymentGateway implements IPaymentGateway {
           "No payment found for the given integration ID"
         );
       }
-      const result = await payment.toArray();
 
-      return result.map(PaymentMapper.map);
+      const resultPayment = {
+        _id: payment._id,
+        status: payment.status,
+        paid_at: payment.paid_at,
+        order_id: payment.order_id,
+        integration_id: payment.integration_id,
+        qr_code: payment.qr_code,
+        total: payment.total,
+      };
+
+      return PaymentMapper.map({ _id: resultPayment._id, ...resultPayment });
     } finally {
       await this.repositoryData.close();
     }

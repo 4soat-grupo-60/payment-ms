@@ -5,10 +5,12 @@
     "outDir": "dist",
     "incremental": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "types": ["node"]
   },
   "include": ["**/*.ts", "*.ts"],
   "exclude": ["node_modules"],
   "buildOnSave": true,
   "compileOnSave": true
 }
+

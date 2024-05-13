@@ -29,7 +29,8 @@ export default class PaymentRoute implements IAppRoute {
     });
 
     app.route(this.ROUTE_BASE_PATH + "/:payment_id").get(async (req, res) => {
-      const payment_id = Number(req.params.payment_id);
+      const payment_id = req.params.payment_id;
+      console.log(payment_id);
 
       try {
         const payment = await PaymentController.getPayment(
@@ -63,7 +64,7 @@ export default class PaymentRoute implements IAppRoute {
       .route(this.ROUTE_BASE_PATH + "/:id/status/:status")
       .put(async (req, res) => {
         try {
-          const paymentId = Number(req.params.id);
+          const paymentId = req.params.id;
           const paymentStatus = new PaymentStatus(req.params.status);
 
           const payment = await PaymentController.updateStatus(

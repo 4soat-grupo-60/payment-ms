@@ -1,7 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import "dotenv/config";
 
-const uri = process.env.MONGODB_URI;
+const uri = "mongodb+srv://monica:moon@4soat-g60.oqt8v2k.mongodb.net/Payments";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -30,3 +30,4 @@ async function run() {
 run().catch(console.dir);
 
 export default client;
+
