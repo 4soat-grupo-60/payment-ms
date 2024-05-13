@@ -19,8 +19,8 @@
        - name: Install dependencies
          run: cd application/  && npm install
 
-       - name: Run tests
-         run: npm run test --prefix application/tests/domain/entities
+       - name: Run test
+         run: npm run test --prefix application/test/domain/entities
 
        - name: SonarCloud Scan
          uses: SonarSource/sonarcloud-github-action@master
