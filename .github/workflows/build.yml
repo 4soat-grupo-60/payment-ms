@@ -16,11 +16,10 @@
          with:
            fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       
+       - name: Navigate to application directory
+         run:  cd application/ 
        - name: List contents of current directory
          run: ls -l
-       - name: Navigate to application directory
-         run:  cd .. && cd application/ 
-
        - name: Install dependencies
          run: npm install
 
