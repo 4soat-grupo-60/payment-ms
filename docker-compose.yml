@@ -10,6 +10,7 @@ services:
       environment:
         - MONGO_INITDB_ROOT_USERNAME=totem
         - MONGO_INITDB_ROOT_PASSWORD=totem
+        - MONGODB_URI=mongodb://payment-ms-mongo:27017/totem-payments
       ports:
         - "27017:27017"
       networks:
