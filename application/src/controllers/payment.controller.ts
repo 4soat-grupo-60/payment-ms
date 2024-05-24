@@ -1,9 +1,10 @@
-import { PaymentStatus } from "../domain/value_object/paymentStatus";
-import { PaymentGatewayGateway } from "../gateways/services/gateway";
-import { PaymentGateway } from "../gateways/repositories/payments";
-import { DbConnection } from "../interfaces/dbconnection";
-import { PaymentUseCases } from "../domain/usecases/payment";
-import { PaymentPresenter } from "./presenters/payment.presenter";
+import {PaymentStatus} from "../domain/value_object/paymentStatus";
+import {PaymentGatewayGateway} from "../gateways/services/gateway";
+import {PaymentGateway} from "../gateways/repositories/payments";
+import {DbConnection} from "../interfaces/dbconnection";
+import {PaymentUseCases} from "../domain/usecases/payment";
+import {PaymentPresenter} from "./presenters/payment.presenter";
+import {OrderClient} from "../gateways/services/order_client";
 
 export class PaymentController {
   static async getAllPayments(dbConnection: DbConnection) {
@@ -42,11 +43,13 @@ export class PaymentController {
     dbConnection: DbConnection
   ) {
     const paymentGateway = new PaymentGateway(dbConnection);
+    const orderGateway = new OrderClient();
 
     const payment = await PaymentUseCases.processPayment(
       integrationID,
       status,
-      paymentGateway
+      paymentGateway,
+      orderGateway
     );
 
     return PaymentPresenter.map(payment);

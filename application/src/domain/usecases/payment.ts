@@ -1,4 +1,5 @@
 import {
+  IOrderGateway,
   IPaymentGateway,
   IPaymentGatewayService,
 } from "../../interfaces/gateways";
@@ -35,13 +36,16 @@ export class PaymentUseCases {
   static async processPayment(
     integrationID: string,
     status: string,
-    paymentGateway: IPaymentGateway
+    paymentGateway: IPaymentGateway,
+    orderGateway: IOrderGateway
   ): Promise<Payment> {
     const payment = await paymentGateway.getByIntegrationID(integrationID);
 
     const newStatus = this._processStatus(status);
 
-    return await this.updateStatus(payment._id, newStatus, paymentGateway);
+    const updateResult = await this.updateStatus(payment._id, newStatus, paymentGateway);
+    await orderGateway.updatePayment(payment.getOrderId(), payment.getId())
+    return updateResult;
   }
 
   static async updateStatus(

@@ -14,3 +14,7 @@ export interface IPaymentGateway {
   updateStatus(id: string, paymentStatus: PaymentStatus): Promise<Payment>;
 }
 
+export interface IOrderGateway {
+  updatePayment(orderId:number, paymentId:string): Promise<boolean>;
+}
+

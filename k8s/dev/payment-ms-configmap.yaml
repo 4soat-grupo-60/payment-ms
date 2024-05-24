@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: payment-ms-configmap
-  namespace: payment-ms
+  namespace: totem
 data:
   MONGO_INITDB_ROOT_USERNAME: totem
   MONGO_INITDB_ROOT_PASSWORD: totem
