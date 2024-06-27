@@ -32,8 +32,11 @@ ADD docker/bin /var/bin
 RUN chown -R 1000:1000 /var/www
 
 RUN chmod 777 /var/bin/docker-entrypoint.sh
+
+RUN apk add curl
+
 ENTRYPOINT /var/bin/docker-entrypoint.sh
 
 EXPOSE 80
 EXPOSE 8080
-EXPOSE 3001
+EXPOSE 3002

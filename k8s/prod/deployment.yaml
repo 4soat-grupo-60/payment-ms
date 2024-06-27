@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment-ms
-  namespace: payment-ms
+  namespace: totem
   labels:
     app: payment-ms
 spec:

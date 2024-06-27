@@ -14,7 +14,7 @@ services:
       ports:
         - "27017:27017"
       networks:
-        - default
+        - totem
 
   payment-ms:
     build:
@@ -25,19 +25,16 @@ services:
       - ./docker/bin:/var/bin
     command: sh -c "npm install && chown -R www-data:www-data /var/www"
     ports:
-      - "3001:3000"
+      - "3002:3000"
     links:
       -   payment-ms-mongo
     networks:
-      - default
+      - totem
 
 networks:
-  default:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.2.0/24
+  totem:
+    external: true
+    
 volumes:
   dbdata:
     driver: local

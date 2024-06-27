@@ -4,13 +4,13 @@ metadata:
   labels:
     run: payment-ms-mongo
   name: payment-ms-mongo
-  namespace: payment-ms
+  namespace: totem
 spec:
   type: NodePort
   ports:
     - port: 27017
       protocol: TCP
       targetPort: 27017
-      nodePort: 32439
+      nodePort: 32440
   selector:
     app: payment-ms-mongo
