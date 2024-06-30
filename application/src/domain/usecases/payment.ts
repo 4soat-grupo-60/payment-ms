@@ -51,9 +51,16 @@ export class PaymentUseCases {
   static async updateStatus(
     id: string,
     status: PaymentStatus,
-    paymentGateway: IPaymentGateway
+    paymentGateway: IPaymentGateway,
+    paymentSagaSender?: IPaymentSagaSender
   ): Promise<Payment> {
-    return await paymentGateway.updateStatus(id, status);
+    const payment = await paymentGateway.updateStatus(id, status);
+
+    if (paymentSagaSender) {
+      await paymentSagaSender.send("payment_updated", payment);
+    }
+
+    return payment;
   }
 
   private static _processStatus(status: string): PaymentStatus {

@@ -62,11 +62,13 @@ export class PaymentController {
     dbConnection: DbConnection
   ) {
     const paymentGateway = new PaymentGateway(dbConnection);
+    const sagaSender = new PaymentSagaSender(new SagaSQSSender());
 
     const payment = await PaymentUseCases.updateStatus(
       paymentId,
       status,
-      paymentGateway
+      paymentGateway,
+      sagaSender
     );
 
     return PaymentPresenter.map(payment);
