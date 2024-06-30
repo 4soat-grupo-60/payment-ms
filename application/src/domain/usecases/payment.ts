@@ -1,6 +1,7 @@
 import {
   IPaymentGateway,
   IPaymentGatewayService,
+  IPaymentSagaSender,
 } from "../../interfaces/gateways";
 import { Payment } from "../entities/payment";
 import { PaymentStatus } from "../value_object/paymentStatus";
@@ -23,11 +24,14 @@ export class PaymentUseCases {
     orderId: number,
     total: number,
     paymentGatewayGateway: IPaymentGatewayService,
-    paymentGateway: IPaymentGateway
+    paymentGateway: IPaymentGateway,
+    paymentSagaSender: IPaymentSagaSender
   ): Promise<Payment> {
     const { identifier, QRCode } = await paymentGatewayGateway.create();
 
     const payment = new Payment(orderId, identifier, QRCode, total);
+
+    await paymentSagaSender.send("payment_created", payment);
 
     return await paymentGateway.save(payment);
   }
@@ -65,4 +69,3 @@ export class PaymentUseCases {
     }
   }
 }
-

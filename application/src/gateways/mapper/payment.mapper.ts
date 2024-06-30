@@ -1,6 +1,7 @@
 import { Payment } from "../../domain/entities/payment";
 import { PaymentStatus } from "../../domain/value_object/paymentStatus";
 import PaymentModel from "../model/payment.model";
+import PaymentMessageModel from "../services/model/payment.message.model";
 
 export default class PaymentMapper {
   static map(input: PaymentModel): Payment {
@@ -17,4 +18,3 @@ export default class PaymentMapper {
     );
   }
 }
-

@@ -1,10 +1,14 @@
+import { ObjectId } from "mongodb";
+
 import { PaymentStatus } from "../../domain/value_object/paymentStatus";
 import { Payment } from "../../domain/entities/payment";
 import RecordNotFoundError from "../../domain/error/RecordNotFoundError";
 import { IPaymentGateway } from "../../interfaces/gateways";
 import { DbConnection } from "../../interfaces/dbconnection";
 import PaymentMapper from "../mapper/payment.mapper";
-import { ObjectId } from "mongodb";
+
+const DB_NAME = "payments-ms";
+const COLLECTION_NAME = "payments";
 
 export class PaymentGateway implements IPaymentGateway {
   private repositoryData: DbConnection;
@@ -16,8 +20,8 @@ export class PaymentGateway implements IPaymentGateway {
   async getAll(): Promise<Payment[]> {
     try {
       await this.repositoryData.connect();
-      const database = this.repositoryData.db("payments-ms");
-      const payments = database.collection("payments");
+      const database = this.repositoryData.db(DB_NAME);
+      const payments = database.collection(COLLECTION_NAME);
 
       const cursor = payments.find();
 
@@ -32,8 +36,8 @@ export class PaymentGateway implements IPaymentGateway {
   async get(id: string): Promise<Payment> {
     try {
       await this.repositoryData.connect();
-      const database = this.repositoryData.db("payments-ms");
-      const payments = database.collection("payments");
+      const database = this.repositoryData.db(DB_NAME);
+      const payments = database.collection(COLLECTION_NAME);
 
       const result = await payments.findOne({ _id: new ObjectId(id) });
 
@@ -56,8 +60,8 @@ export class PaymentGateway implements IPaymentGateway {
   async save(payment: Payment): Promise<Payment> {
     try {
       await this.repositoryData.connect();
-      const database = this.repositoryData.db("payments-ms");
-      const payments = database.collection("payments");
+      const database = this.repositoryData.db(DB_NAME);
+      const payments = database.collection(COLLECTION_NAME);
 
       const savedPayment = {
         order_id: payment.getOrderId(),
@@ -84,8 +88,8 @@ export class PaymentGateway implements IPaymentGateway {
   ): Promise<Payment> {
     try {
       await this.repositoryData.connect();
-      const database = this.repositoryData.db("payments-ms");
-      const payments = database.collection("payments");
+      const database = this.repositoryData.db(DB_NAME);
+      const payments = database.collection(COLLECTION_NAME);
 
       const findPayment = await payments.findOne({
         _id: new ObjectId(id),
@@ -122,8 +126,8 @@ export class PaymentGateway implements IPaymentGateway {
   async getByIntegrationID(integrationID: string): Promise<Payment> {
     try {
       await this.repositoryData.connect();
-      const database = this.repositoryData.db("payments-ms");
-      const payments = database.collection("payments");
+      const database = this.repositoryData.db(DB_NAME);
+      const payments = database.collection(COLLECTION_NAME);
 
       const payment = await payments.findOne({
         integration_id: integrationID,
@@ -151,4 +155,3 @@ export class PaymentGateway implements IPaymentGateway {
     }
   }
 }
-

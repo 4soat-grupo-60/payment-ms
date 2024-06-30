@@ -3,11 +3,13 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as compression from "compression";
+import * as AWS from "aws-sdk";
 import "dotenv/config";
 
 import IAppRoute from "../interfaces/IAppRoute";
 import { DbConnection } from "../interfaces/dbconnection";
 import PaymentRoute from "./routes/PaymentRoute";
+import { setupConsumers } from "../consumers";
 
 export default class StartUp {
   private dbConnection: DbConnection;
@@ -18,8 +20,10 @@ export default class StartUp {
     this.dbConnection = dbConnection;
     this.app = express();
 
+    this.initAWS();
     this.middler();
     this.initRoutes();
+    setupConsumers(this.dbConnection);
   }
 
   enableCors() {
@@ -38,6 +42,18 @@ export default class StartUp {
     this.app.use(compression());
   }
 
+  initAWS() {
+    const credentials = new AWS.Credentials({
+      accessKeyId: process.env.AWS_ACCESS_KEY,
+      secretAccessKey: process.env.AWS_SECRET_KEY,
+    });
+
+    AWS.config.update({
+      region: process.env.AWS_REGION || "us-east-1",
+      credentials: credentials,
+    });
+  }
+
   initRoutes() {
     let routes: IAppRoute[] = [new PaymentRoute(this.dbConnection)];
 
@@ -52,8 +68,7 @@ export default class StartUp {
     });
 
     this.app.listen(port, () => {
-      console.log(`App está executando na porta ${port}`);
+      console.log(`Serviço de pagamento está executando na porta ${port}`);
     });
   }
 }
-

@@ -4,6 +4,8 @@ import { PaymentGateway } from "../gateways/repositories/payments";
 import { DbConnection } from "../interfaces/dbconnection";
 import { PaymentUseCases } from "../domain/usecases/payment";
 import { PaymentPresenter } from "./presenters/payment.presenter";
+import { PaymentSagaSender } from "../gateways/services/payment_saga_sender";
+import { SagaSQSSender } from "../gateways/services/saga_sqs_sender";
 
 export class PaymentController {
   static async getAllPayments(dbConnection: DbConnection) {
@@ -25,12 +27,14 @@ export class PaymentController {
   ) {
     const paymentGatewayGateway = new PaymentGatewayGateway();
     const paymentGateway = new PaymentGateway(dbConnection);
+    const sagaSender = new PaymentSagaSender(new SagaSQSSender());
 
     const payment = await PaymentUseCases.save(
       orderId,
       total,
       paymentGatewayGateway,
-      paymentGateway
+      paymentGateway,
+      sagaSender
     );
 
     return PaymentPresenter.map(payment);
@@ -68,4 +72,3 @@ export class PaymentController {
     return PaymentPresenter.map(payment);
   }
 }
-
