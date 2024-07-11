@@ -57,7 +57,7 @@ export default class StartUp {
   initRoutes() {
     let routes: IAppRoute[] = [new PaymentRoute(this.dbConnection)];
 
-    let port = process.env.PORT || 8080;
+    let port = process.env.PORT || 3000;
 
     for (let route of routes) {
       route.setup(this.app);
