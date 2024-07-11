@@ -2,10 +2,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: payment-ms-configmap
-  namespace: payment-ms
+  namespace: totem
 data:
   MONGO_INITDB_ROOT_USERNAME: totem
   MONGO_INITDB_ROOT_PASSWORD: totem
   MONGO_DB: payment-ms-mongo
-  DATABASE_URL: "mongodb://payment-ms-mongo:27017/payment-ms"
-  PORT: "8080"
+  DATABASE_URL: "mongodb://payment-ms-mongo:27017/totem-payments"
+  MONGODB_URI: "mongodb://payment-ms-mongo:27017/totem-payments"
+  PORT: "3000"

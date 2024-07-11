@@ -4,14 +4,11 @@ import { PaymentStatus } from "../../../src/domain/value_object/paymentStatus";
 
 describe("Payment Domain Entitie", () => {
   it("should create a payment", () => {
-    //Arrange
     const payment: Payment = createPayment();
 
-    // Act
     const order_id = payment.getOrderId();
     const total = payment.getTotal();
 
-    // Assert
     expect(order_id).toBe(125);
     expect(total).toBe(180);
   });
@@ -73,4 +70,62 @@ const createPayment = () => {
 
   return payment;
 };
+
+describe("Payment Domain Entity", () => {
+  it("should create a payment with default status", () => {
+    // Arrange
+    const orderId = 125;
+    const integrationId = "12545214";
+    const qrCode = "qrCode";
+    const total = 180;
+
+    // Act
+    const payment = new Payment(orderId, integrationId, qrCode, total);
+
+    // Assert
+    expect(payment.getOrderId()).toBe(orderId);
+    expect(payment.getIntegrationId()).toBe(integrationId);
+    expect(payment.getQrCode()).toBe(qrCode);
+    expect(payment.getTotal()).toBe(total);
+    expect(payment.getStatus().value()).toBe(PaymentStatus.PENDENTE);
+  });
+
+  it("should create a payment with provided values", () => {
+    // Arrange
+    const id = "1125442";
+    const orderId = 125;
+    const integrationId = "12545214";
+    const qrCode = "qrCode";
+    const total = 180;
+    const status = new PaymentStatus("Pago");
+    const paidAt = new Date();
+    const createdAt = new Date();
+    const updatedAt = new Date();
+
+    // Act
+    const payment = Payment.New(
+      id,
+      orderId,
+      integrationId,
+      qrCode,
+      total,
+      status,
+      paidAt,
+      createdAt,
+      updatedAt
+    );
+
+    // Assert
+    expect(payment.getId()).toBe(id);
+    expect(payment.getOrderId()).toBe(orderId);
+    expect(payment.getIntegrationId()).toBe(integrationId);
+    expect(payment.getQrCode()).toBe(qrCode);
+    expect(payment.getTotal()).toBe(total);
+    expect(payment.getStatus().value()).toBe("Pago");
+    expect(payment.getPaidAt()).toBe(paidAt);
+    expect(payment.getCreatedAt()).toBe(createdAt);
+    expect(payment.getUpdatedAt()).toBe(updatedAt);
+    expect(payment.getintegrationId()).toBe(integrationId);
+  });
+});
 
