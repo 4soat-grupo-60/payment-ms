@@ -1,6 +1,7 @@
 import {
   IPaymentGateway,
   IPaymentGatewayService,
+  IPaymentSagaSender,
 } from "../../interfaces/gateways";
 import { Payment } from "../entities/payment";
 import { PaymentStatus } from "../value_object/paymentStatus";
@@ -23,11 +24,14 @@ export class PaymentUseCases {
     orderId: number,
     total: number,
     paymentGatewayGateway: IPaymentGatewayService,
-    paymentGateway: IPaymentGateway
+    paymentGateway: IPaymentGateway,
+    paymentSagaSender: IPaymentSagaSender
   ): Promise<Payment> {
     const { identifier, QRCode } = await paymentGatewayGateway.create();
 
     const payment = new Payment(orderId, identifier, QRCode, total);
+
+    await paymentSagaSender.send("payment_created", payment);
 
     return await paymentGateway.save(payment);
   }
@@ -47,9 +51,16 @@ export class PaymentUseCases {
   static async updateStatus(
     id: string,
     status: PaymentStatus,
-    paymentGateway: IPaymentGateway
+    paymentGateway: IPaymentGateway,
+    paymentSagaSender?: IPaymentSagaSender
   ): Promise<Payment> {
-    return await paymentGateway.updateStatus(id, status);
+    const payment = await paymentGateway.updateStatus(id, status);
+
+    if (paymentSagaSender) {
+      await paymentSagaSender.send("payment_updated", payment);
+    }
+
+    return payment;
   }
 
   private static _processStatus(status: string): PaymentStatus {
@@ -65,4 +76,3 @@ export class PaymentUseCases {
     }
   }
 }
-
