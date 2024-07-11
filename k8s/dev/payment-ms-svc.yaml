@@ -4,7 +4,7 @@ metadata:
   labels:
     run: payment-ms
   name: payment-ms
-  namespace: payment-ms
+  namespace: totem
 spec:
   type: NodePort
   ports:
