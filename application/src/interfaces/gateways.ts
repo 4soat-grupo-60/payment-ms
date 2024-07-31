@@ -8,6 +8,8 @@ import {
 
 export interface IPaymentGatewayService {
   create(): Promise<PaymentGatewayResponse>;
+  cancel(integrationId: string): Promise<PaymentGatewayResponse>;
+  refund(integrationId: string): Promise<PaymentGatewayResponse>;
 }
 
 export interface IPaymentGateway {
