@@ -6,13 +6,13 @@ services:
         dockerfile: docker/database/Dockerfile
       container_name: payment-ms-mongo
       volumes:
-        - ./docker/database/postgres:/application/
+        - ./docker/database/mongo:/application/
       environment:
         - MONGO_INITDB_ROOT_USERNAME=totem
         - MONGO_INITDB_ROOT_PASSWORD=totem
         - MONGODB_URI=mongodb://payment-ms-mongo:27017/totem-payments
       ports:
-        - "27017:27017"
+        - "27018:27017"
       networks:
         - totem
 
@@ -33,7 +33,7 @@ services:
 
 networks:
   totem:
-    external: true
+#    external: true
     
 volumes:
   dbdata:

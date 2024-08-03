@@ -30,10 +30,9 @@ export class PaymentUseCases {
     const {identifier, QRCode} = await paymentGatewayGateway.create();
 
     const payment = new Payment(orderId, identifier, QRCode, total);
-
-    await paymentSagaSender.send("payment_created", payment);
-
-    return await paymentGateway.save(payment);
+    const savedPayment = await paymentGateway.save(payment);
+    await paymentSagaSender.send("payment_created", savedPayment);
+    return savedPayment;
   }
 
   static async cancel(
@@ -64,13 +63,13 @@ export class PaymentUseCases {
 
     // If is paid a refund will be made
     if (payment.getStatus().isPaid()) {
-      await paymentGateway.updateStatus(payment.getId(), this._processStatus(PaymentStatus.CANCELADO));
+      await paymentGateway.updateStatus(payment.getId(),  new PaymentStatus(PaymentStatus.CANCELADO));
       await paymentGatewayGateway.refund(payment.getIntegrationId());
       return await paymentGateway.get(paymentId);
     }
 
     // If is not paid the charge will be cancelled
-    await paymentGateway.updateStatus(payment.getId(), this._processStatus(PaymentStatus.CANCELADO));
+    await paymentGateway.updateStatus(payment.getId(), new PaymentStatus(PaymentStatus.CANCELADO));
     await paymentGatewayGateway.cancel(payment.getIntegrationId());
     return await paymentGateway.get(paymentId);
   }
@@ -78,20 +77,21 @@ export class PaymentUseCases {
   static async processPayment(
     integrationID: string,
     status: string,
-    paymentGateway: IPaymentGateway
+    paymentGateway: IPaymentGateway,
+    paymentSagaSender: IPaymentSagaSender
   ): Promise<Payment> {
     const payment = await paymentGateway.getByIntegrationID(integrationID);
 
     const newStatus = this._processStatus(status);
 
-    return await this.updateStatus(payment._id, newStatus, paymentGateway);
+    return await this.updateStatus(payment._id, newStatus, paymentGateway, paymentSagaSender);
   }
 
   static async updateStatus(
     id: string,
     status: PaymentStatus,
     paymentGateway: IPaymentGateway,
-    paymentSagaSender?: IPaymentSagaSender
+    paymentSagaSender: IPaymentSagaSender
   ): Promise<Payment> {
     const payment = await paymentGateway.updateStatus(id, status);
 

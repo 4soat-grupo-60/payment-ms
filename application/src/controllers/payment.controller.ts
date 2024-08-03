@@ -29,6 +29,10 @@ export class PaymentController {
     const paymentGateway = new PaymentGateway(dbConnection);
     const sagaSender = new PaymentSagaSender(new SagaSQSSender());
 
+    const existingPayment = await paymentGateway.getByOrder(orderId)
+
+    if (existingPayment) return existingPayment;
+
     const payment = await PaymentUseCases.save(
       orderId,
       total,
@@ -68,11 +72,13 @@ export class PaymentController {
     dbConnection: DbConnection
   ) {
     const paymentGateway = new PaymentGateway(dbConnection);
+    const sagaSender = new PaymentSagaSender(new SagaSQSSender());
 
     const payment = await PaymentUseCases.processPayment(
       integrationID,
       status,
-      paymentGateway
+      paymentGateway,
+      sagaSender
     );
 
     return PaymentPresenter.map(payment);
