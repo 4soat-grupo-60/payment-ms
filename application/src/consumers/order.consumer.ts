@@ -13,15 +13,15 @@ export class OrderConsumer implements IMessageConsumer<any> {
     // console.log("processed:", saga, body);
 
     if (saga === "order_created") {
-      const {order_id, total_value} = body.payload;
+      const {id, total} = body.payload;
 
-      if (!order_id || !total_value) {
+      if (!id || !total) {
         return Promise.resolve(false);
       }
 
       await PaymentController.createPayment(
-        order_id,
-        total_value,
+        id,
+        total,
         this.dbConnection
       );
     } else if (saga === "order_updated") {

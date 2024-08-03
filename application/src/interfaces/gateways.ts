@@ -15,6 +15,7 @@ export interface IPaymentGatewayService {
 export interface IPaymentGateway {
   getAll(): Promise<Payment[]>;
   get(id: string): Promise<Payment>;
+  getByOrder(id: number): Promise<Payment | undefined>;
   save(payment: Payment): Promise<Payment>;
   getByIntegrationID(integrationID: string): Promise<Payment>;
   updateStatus(id: string, paymentStatus: PaymentStatus): Promise<Payment>;

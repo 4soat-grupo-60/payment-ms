@@ -1,10 +1,10 @@
-import { ObjectId } from "mongodb";
+import {ObjectId} from "mongodb";
 
-import { PaymentStatus } from "../../domain/value_object/paymentStatus";
-import { Payment } from "../../domain/entities/payment";
+import {PaymentStatus} from "../../domain/value_object/paymentStatus";
+import {Payment} from "../../domain/entities/payment";
 import RecordNotFoundError from "../../domain/error/RecordNotFoundError";
-import { IPaymentGateway } from "../../interfaces/gateways";
-import { DbConnection } from "../../interfaces/dbconnection";
+import {IPaymentGateway} from "../../interfaces/gateways";
+import {DbConnection} from "../../interfaces/dbconnection";
 import PaymentMapper from "../mapper/payment.mapper";
 
 const DB_NAME = "payments-ms";
@@ -39,7 +39,7 @@ export class PaymentGateway implements IPaymentGateway {
       const database = this.repositoryData.db(DB_NAME);
       const payments = database.collection(COLLECTION_NAME);
 
-      const result = await payments.findOne({ _id: new ObjectId(id) });
+      const result = await payments.findOne({_id: new ObjectId(id)});
 
       const resultPayment = {
         _id: result._id,
@@ -51,7 +51,35 @@ export class PaymentGateway implements IPaymentGateway {
         total: result.total,
       };
 
-      return PaymentMapper.map({ _id: result._id, ...resultPayment });
+      return PaymentMapper.map({_id: result._id, ...resultPayment});
+    } finally {
+      await this.repositoryData.close();
+    }
+  }
+
+  async getByOrder(orderId: number): Promise<Payment | undefined> {
+    try {
+      await this.repositoryData.connect();
+      const database = this.repositoryData.db(DB_NAME);
+      const payments = database.collection(COLLECTION_NAME);
+
+      const result = await payments.findOne({order_id: orderId});
+
+      if (!result) {
+        return undefined;
+      }
+
+      const resultPayment = {
+        _id: result._id,
+        status: result.status,
+        paid_at: result.paid_at,
+        order_id: result.order_id,
+        integration_id: result.integration_id,
+        qr_code: result.qr_code,
+        total: result.total,
+      };
+
+      return PaymentMapper.map({_id: result._id, ...resultPayment});
     } finally {
       await this.repositoryData.close();
     }
@@ -110,8 +138,8 @@ export class PaymentGateway implements IPaymentGateway {
       };
 
       await payments.updateOne(
-        { _id: findPayment._id },
-        { $set: updatedPayment }
+        {_id: findPayment._id},
+        {$set: updatedPayment}
       );
 
       return PaymentMapper.map({
@@ -149,7 +177,7 @@ export class PaymentGateway implements IPaymentGateway {
         total: payment.total,
       };
 
-      return PaymentMapper.map({ _id: resultPayment._id, ...resultPayment });
+      return PaymentMapper.map({_id: resultPayment._id, ...resultPayment});
     } finally {
       await this.repositoryData.close();
     }
