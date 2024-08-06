@@ -4,9 +4,10 @@ metadata:
   name: payment-ms-configmap
   namespace: totem
 data:
-  MONGO_INITDB_ROOT_USERNAME: totem
-  MONGO_INITDB_ROOT_PASSWORD: totem
-  MONGO_DB: payment-ms-mongo
-  DATABASE_URL: "mongodb://payment-ms-mongo:27017/totem-payments"
-  MONGODB_URI: "mongodb://payment-ms-mongo:27017/totem-payments"
+  AWS_SECRET_KEY: "test"
+  AWS_ACCESS_KEY_ID: "test"
+  AWS_ENDPOINT: "http://host.docker.internal:4566"
+  AWS_PAYMENT_QUEUE: "http://host.docker.internal:4566/000000000000/payment-queue"
+  AWS_ORDER_QUEUE: "http://host.docker.internal:4566/000000000000/order-queue"
+  MONGODB_URI: "mongodb://totem:totem@payment-ms-mongo:27017"
   PORT: "3000"

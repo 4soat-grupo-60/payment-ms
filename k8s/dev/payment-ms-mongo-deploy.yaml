@@ -26,13 +26,13 @@ spec:
           claimName: payment-ms-mongo
       containers:
       - name: payment-ms-mongo
-        envFrom:
-        - configMapRef:
-            name: payment-ms-configmap
-        - secretRef:
-            name: payment-ms-mongo
         image: mongo
-        imagePullPolicy: Always
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: totem
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: totem
+        imagePullPolicy: IfNotPresent
         workingDir: /application
         #imagePullPolicy: IfNotPresent
         volumeMounts:

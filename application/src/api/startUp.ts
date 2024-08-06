@@ -68,7 +68,7 @@ export default class StartUp {
     });
 
     this.app.listen(port, () => {
-      console.log(`Serviço de pagamento está executando na porta ${port}`);
+      console.log(`Payment-ms executando na porta ${port}`);
     });
   }
 }

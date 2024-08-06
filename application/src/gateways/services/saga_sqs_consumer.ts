@@ -19,7 +19,7 @@ export class SagaSQSConsumer {
   receiveMessages() {
     setInterval(() => {
       this._receiveMessages();
-    }, 1000);
+    }, 3000);
   }
 
   _receiveMessages() {
