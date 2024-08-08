@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ZAP Scanning Report</title>
+<link href="payment-confirm/common.css"
+	rel="stylesheet" type="text/css">
+<link href="payment-confirm/technology.css" rel="stylesheet" type="text/css">
+<script src="payment-confirm/chart.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function showHide(id) {
+        showHideElement(id + "reqh");
+        showHideElement(id + "reqb");
+        showHideElement(id + "resph");
+        showHideElement(id + "respb");
+    }
+    function showHideElement(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+<link rel="stylesheet" href="payment-confirm/chart.min.css">
+</head>
+<body>
+
+	
+		<div class="hero"></div>
+	
+
+	<header id="header">
+		<div class="wrap">
+			<div class="inner">
+				<h1>
+					<!-- The ZAP Logo -->
+					<img src="payment-confirm/zap32x32.png" alt="ZAP" />
+					ZAP Scanning Report
+				</h1>
+			</div>
+		</div>
+	</header>
+
+	<section id="segment-01" class="container">
+		<div class="wrap">
+			<div class="inner pt3">
+
+				
+
+				<h3>
+					Generated on Thu, 8 Aug 2024 09:41:42
+				</h3>
+
+				<h3>
+					ZAP Version: 2.15.0
+				</h3>
+
+				<h4>
+					ZAP is supported by the <a
+						href="https://crashoverride.com/?zap=rep">Crash Override Open
+						Source Fellowship</a>
+				</h4>
+
+				
+					<!--  Hidden divs just to allow us to get hold of the right CSS colors -->
+					<div class="risk-3-chart" style="display: none;"></div>
+					<div class="risk-2-chart" style="display: none;"></div>
+					<div class="risk-1-chart" style="display: none;"></div>
+					<div class="risk-0-chart" style="display: none;"></div>
+					<div class="chart-text-color" style="display: none;"></div>
+
+					<div class="summaryChartWrapper">
+						<canvas id="summaryChart" width="550" height="300"></canvas>
+						<script type="text/javascript">
+                            /*<![CDATA[*/
+                            var title = "Alert Chart";
+                            var labels = [
+                            "High",
+                            "Medium",
+                            "Low",
+                            "Informational"];
+                            var data = [
+                            null,
+                            3,
+                            2,
+                            null];
+                            /*]]>*/
+
+                            const fontColor = getComputedStyle(document
+                                    .querySelector('.chart-text-color')).color;
+
+                            var options = {
+                                responsive : true,
+                                legend : {
+                                    position : 'bottom',
+                                    labels : {
+                                        fontColor : fontColor,
+                                        padding : 30
+                                    }
+                                }
+                            }
+
+                            const chartHigh = getComputedStyle(document
+                                    .querySelector('.risk-3-chart')).backgroundColor;
+                            const chartMed = getComputedStyle(document
+                                    .querySelector('.risk-2-chart')).backgroundColor;
+                            const chartLow = getComputedStyle(document
+                                    .querySelector('.risk-1-chart')).backgroundColor;
+                            const chartInfo = getComputedStyle(document
+                                    .querySelector('.risk-0-chart')).backgroundColor;
+
+                            new Chart(document.getElementById("summaryChart"),
+                                    {
+                                        type : "doughnut",
+                                        data : {
+                                            labels : labels,
+                                            datasets : [ {
+                                                label : title,
+                                                data : data,
+                                                fill : false,
+                                                backgroundColor : [ chartHigh,
+                                                        chartMed, chartLow,
+                                                        chartInfo ],
+                                                borderWidth : 0
+                                            } ]
+                                        },
+                                        options : options
+                                    });
+                        </script>
+					</div>
+				
+
+				
+					<h3 class="left-header">Summary of Alerts</h3>
+					<div class="tableWrapper">
+						<table class="summary" cellspacing="0" cellpadding="0">
+							<tr>
+								<th width="45%"
+									height="24">Risk Level</th>
+								<th width="55%"
+									align="center">Number of Alerts</th>
+							</tr>
+							<tr>
+								<td class="risk-3">
+									<div>High</div>
+								</td>
+								<td align="center">
+									<div>0</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="risk-2">
+									<div>Medium</div>
+								</td>
+								<td align="center">
+									<div>3</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="risk-1">
+									<div>Low</div>
+								</td>
+								<td align="center">
+									<div>2</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="risk-0">
+									<div>Informational</div>
+								</td>
+								<td align="center">
+									<div>0</div>
+								</td>
+							</tr>
+							
+						</table>
+					</div>
+					<div class="spacer-lg"></div>
+				
+
+			</div>
+		</div>
+	</section>
+
+	
+	
+	
+		<div></div>
+	
+
+	<section id="segment-02" class="container">
+		<div class="wrap">
+			<div class="inner">
+
+				
+					<h3>Alerts</h3>
+					<div class="tableWrapper">
+						<table class="alerts" cellspacing="0" cellpadding="0">
+							<tr>
+								<th width="60%" height="24">Name</th>
+								<th width="20%"
+									align="center">Risk Level</th>
+								<th width="20%"
+									align="center">Number of Instances</th>
+							</tr>
+							<tr>
+								<td><a href="#plugin-10038">Content Security Policy (CSP) Header Not Set</a></td>
+								<td align="center" class="risk-2">Medium</td>
+								<td align="center">1</td>
+							</tr>
+							<tr>
+								<td><a href="#plugin-10098">Cross-Domain Misconfiguration</a></td>
+								<td align="center" class="risk-2">Medium</td>
+								<td align="center">1</td>
+							</tr>
+							<tr>
+								<td><a href="#plugin-10020">Missing Anti-clickjacking Header</a></td>
+								<td align="center" class="risk-2">Medium</td>
+								<td align="center">1</td>
+							</tr>
+							<tr>
+								<td><a href="#plugin-10037">Server Leaks Information via &quot;X-Powered-By&quot; HTTP Response Header Field(s)</a></td>
+								<td align="center" class="risk-1">Low</td>
+								<td align="center">1</td>
+							</tr>
+							<tr>
+								<td><a href="#plugin-10021">X-Content-Type-Options Header Missing</a></td>
+								<td align="center" class="risk-1">Low</td>
+								<td align="center">1</td>
+							</tr>
+						</table>
+					</div>
+				
+
+			</div>
+		</div>
+	</section>
+
+	<section id="segment-03" class="container">
+		<div class="wrap">
+			<div class="inner">
+
+				
+					<h3>Passing Rules</h3>
+					<div class="tableWrapper">
+						<table class="alerts" cellspacing="0" cellpadding="0">
+							<tr>
+								<th width="55%" height="24">Name</th>
+								<th width="15%"
+									align="center">Rule Type</th>
+								<th width="15%"
+									align="center">Threshold</th>
+								<th width="15%"
+									align="center">Strength</th>
+							</tr>
+							
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/0/">Directory Browsing</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40003/">CRLF Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/6/">Path Traversal</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/7/">Remote File Inclusion</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40008/">Parameter Tampering</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40009/">Server Side Include</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10058/">GET for POST</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40012/">Cross Site Scripting (Reflected)</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40014/">Cross Site Scripting (Persistent)</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/50000/">Script Active Scan Rules</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40016/">Cross Site Scripting (Persistent) - Prime</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40017/">Cross Site Scripting (Persistent) - Spider</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40018/">SQL Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40019/">SQL Injection - MySQL</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40020/">SQL Injection - Hypersonic SQL</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40021/">SQL Injection - Oracle</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40022/">SQL Injection - PostgreSQL</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40024/">SQL Injection - SQLite</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40026/">Cross Site Scripting (DOM Based)</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40027/">SQL Injection - MsSQL</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40028/">ELMAH Information Leak</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40029/">Trace.axd Information Leak</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90017/">XSLT Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40032/">.htaccess Information Leak</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40034/">.env Information Leak</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90019/">Server Side Code Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40035/">Hidden File Finder</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90021/">XPath Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90020/">Remote OS Command Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90023/">XML External Entity Attack</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90024/">Generic Padding Oracle</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40042/">Spring Actuator Information Leak</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90026/">SOAP Action Spoofing</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40043/">Log4Shell</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90029/">SOAP XML Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/40045/">Spring4Shell</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/20015/">Heartbleed OpenSSL Vulnerability</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/30001/">Buffer Overflow</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/20017/">Source Code Disclosure - CVE-2012-1823</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/30002/">Format String Error</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90035/">Server Side Template Injection</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/20018/">Remote Code Execution - CVE-2012-1823</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90034/">Cloud Metadata Potentially Exposed</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/20019/">External Redirect</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90036/">Server Side Template Injection (Blind)</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10104/">User Agent Fuzzer</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10045/">Source Code Disclosure - /WEB-INF Folder</a></td>
+										<td align="center">Active</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">MEDIUM</td>
+									</tr>
+								
+							
+							
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10112/">Session Management Response Identified</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10113/">Verification Request Identified</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/2/">Private IP Disclosure</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/3/">Session ID in URL Rewrite</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90001/">Insecure JSF ViewState</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10003/">Vulnerable JS Library (Powered by Retire.js)</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90011/">Charset Mismatch</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10010/">Cookie No HttpOnly Flag</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10011/">Cookie Without Secure Flag</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10015/">Re-examine Cache-control Directives</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10017/">Cross-Domain JavaScript Source File Inclusion</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10019/">Content-Type Header Missing</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									
+								
+									
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90022/">Application Error Disclosure</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10023/">Information Disclosure - Debug Error Messages</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10024/">Information Disclosure - Sensitive Information in URL</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10025/">Information Disclosure - Sensitive Information in HTTP Referrer Header</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10027/">Information Disclosure - Suspicious Comments</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10028/">Open Redirect</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10029/">Cookie Poisoning</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10030/">User Controllable Charset</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10031/">User Controllable HTML Element Attribute (Potential XSS)</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90030/">WSDL File Detection</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/90033/">Loosely Scoped Cookie</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10032/">Viewstate</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10033/">Directory Browsing</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10034/">Heartbleed OpenSSL Vulnerability (Indicative)</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10035/">Strict-Transport-Security Header</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10036/">HTTP Server Response Header</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									
+								
+									
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10039/">X-Backend-Server Header Information Leak</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10040/">Secure Pages Include Mixed Content</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10041/">HTTP to HTTPS Insecure Transition in Form Post</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10042/">HTTPS to HTTP Insecure Transition in Form Post</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10043/">User Controllable JavaScript Event (XSS)</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10044/">Big Redirect Detected (Potential Sensitive Information Leak)</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10050/">Retrieved from Cache</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10052/">X-ChromeLogger-Data (XCOLD) Header Information Leak</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10054/">Cookie without SameSite Attribute</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10055/">CSP</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10056/">X-Debug-Token Information Leak</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10057/">Username Hash Found</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10061/">X-AspNet-Version Response Header</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10062/">PII Disclosure</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/50001/">Script Passive Scan Rules</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/50003/">Stats Passive Scan Rule</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10202/">Absence of Anti-CSRF Tokens</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10096/">Timestamp Disclosure</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10097/">Hash Disclosure</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10105/">Weak Authentication Method</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10108/">Reverse Tabnabbing</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10109/">Modern Web Application</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+									<tr>
+										<td><a
+											href="https://www.zaproxy.org/docs/alerts/10111/">Authentication Request Identified</a></td>
+										<td align="center">Passive</td>
+										<td align="center">MEDIUM</td>
+										<td align="center">-</td>
+									</tr>
+								
+							
+						</table>
+					</div>
+				
+
+			</div>
+		</div>
+	</section>
+
+	<section id="segment-04" class="container">
+		<div class="wrap">
+			<div class="inner">
+
+				<h2>Sites</h2>
+				
+					<h3>http://localhost:3002</h3>
+					
+						<div class="tableWrapper">
+							<table class="summary" cellspacing="0" cellpadding="0">
+								<tr>
+									<th width="45%" height="24">HTTP Response Code</th>
+									<th width="55%" align="center">Number of Responses</th>
+								</tr>
+
+								
+									<tr>
+										<td><a
+											href="https://developer.mozilla.org/docs/Web/HTTP/Status/404">404 Not Found</a>
+										</td>
+										<td align="center">
+											<div>342</div>
+										</td>
+									</tr>
+									
+								
+									<tr>
+										<td><a
+											href="https://developer.mozilla.org/docs/Web/HTTP/Status/200">200 OK</a>
+										</td>
+										<td align="center">
+											<div>237</div>
+										</td>
+									</tr>
+									
+								
+									<tr>
+										<td><a
+											href="https://developer.mozilla.org/docs/Web/HTTP/Status/201">201 Created</a>
+										</td>
+										<td align="center">
+											<div>229</div>
+										</td>
+									</tr>
+									
+								
+									<tr>
+										<td><a
+											href="https://developer.mozilla.org/docs/Web/HTTP/Status/500">500 Internal Server Error</a>
+										</td>
+										<td align="center">
+											<div>15</div>
+										</td>
+									</tr>
+									
+								
+							</table>
+						</div>
+
+						<h4>No Authentication Statistics Found</h4>
+						<div class="tableWrapper">
+							
+						</div>
+					
+					
+					
+						<div class="tableWrapper">
+							<table class="summary" cellspacing="0" cellpadding="0">
+								<tr>
+									<th>Parameter Name</th>
+									<th>Type</th>
+									<th>Flags</th>
+									<th>Times Used</th>
+									<th># Values</th>
+								</tr>
+								
+									<tr>
+										<td>
+											<div>Access-Control-Allow-Origin</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Connection</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Content-Length</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>9</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Content-Security-Policy</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>1</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Content-Type</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>2</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Date</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>14</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>ETag</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>13</div>
+										</td>
+										<td>
+											<div>8</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Keep-Alive</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>Vary</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>X-Content-Type-Options</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>1</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+									<tr>
+										<td>
+											<div>X-Powered-By</div>
+										</td>
+										<td>
+											<div>Header</div>
+										</td>
+										<td></td>
+										<td>
+											<div>14</div>
+										</td>
+										<td>
+											<div>1</div>
+										</td>
+									</tr>
+								
+
+							</table>
+						</div>
+					
+				
+
+				
+					<h3>Alert Detail</h3>
+					
+						<div class="tableWrapper">
+							<table class="results" cellspacing="0" cellpadding="0">
+								<tr height="24">
+									<th width="20%" class="risk-2"><a
+										id="plugin-10038"></a>
+										<div>Medium</div></th>
+									<th class="risk-2">Content Security Policy (CSP) Header Not Set</th>
+								</tr>
+								<tr>
+									<td width="20%">Description</td>
+									<td width="80%">
+											<div>Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page — covered types are JavaScript, CSS, HTML frames, fonts, images and embeddable objects such as Java applets, ActiveX, audio and video files.</div>
+											
+										</td>
+								</tr>
+								<TR vAlign="top">
+									<TD colspan="2"></TD>
+								</TR>
+								
+									<tr>
+										<td width="20%"
+											class="indent1">URL</td>
+										<td width="80%"><a href="http://localhost:3002/api/payments/process">http://localhost:3002/api/payments/process</a></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Method</td>
+										<td width="80%">POST</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Parameter</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Attack</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Evidence</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">
+											<div id="alert-246">
+												<a
+													onclick="showHide(&#39;alert-246&#39;);"
+													href="#246">Show / hide Request and Response</a>
+											</div>
+										</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Header
+											- size: 284 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-246reqh"
+												style="display: none;">
+												
+													POST http://localhost:3002/api/payments/process HTTP/1.1
+													<br />
+												
+													Content-Type: application/json
+													<br />
+												
+													User-Agent: PostmanRuntime/7.40.0
+													<br />
+												
+													Accept: */*
+													<br />
+												
+													Cache-Control: no-cache
+													<br />
+												
+													Postman-Token: 4df5d0c8-8174-4980-9baa-0918afefd8bf
+													<br />
+												
+													host: localhost:3002
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Content-Length: 74
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Body
+											- size: 74 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-246reqb"
+												style="display: none;">
+												
+													{
+													<br />
+												
+													    &quot;id&quot;: &quot;0709dd5e-159e-4c44-ac9a-a7381a607a6f&quot;,
+													<br />
+												
+													    &quot;status&quot;: &quot;paid&quot;
+													<br />
+												
+													}
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Header
+											- size: 281 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-246resph"
+												style="display: none;">
+												
+													HTTP/1.1 200 OK
+													<br />
+												
+													X-Powered-By: Express
+													<br />
+												
+													Access-Control-Allow-Origin: *
+													<br />
+												
+													Content-Type: text/html; charset=utf-8
+													<br />
+												
+													Content-Length: 2
+													<br />
+												
+													ETag: W/&quot;2-nOO9QiTIwXgNtWtBJezz8kv3SLc&quot;
+													<br />
+												
+													Vary: Accept-Encoding
+													<br />
+												
+													Date: Thu, 08 Aug 2024 12:40:07 GMT
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Keep-Alive: timeout=5
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Body
+											- size: 2 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-246respb"
+												style="display: none;">
+												
+													OK
+													
+												
+											</div>
+										</td>
+									</tr>
+								
+								<tr>
+									<td width="20%">Instances</td>
+									<td width="80%">1</td>
+								</tr>
+								<tr>
+									<td width="20%">Solution</td>
+									<td width="80%">
+											<div>Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.</div>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Reference</td>
+									<td width="80%">
+											<a href="https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy">https://developer.mozilla.org/en-US/docs/Web/Security/CSP/Introducing_Content_Security_Policy</a>
+											<br />
+										
+											<a href="https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html">https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</a>
+											<br />
+										
+											<a href="https://www.w3.org/TR/CSP/">https://www.w3.org/TR/CSP/</a>
+											<br />
+										
+											<a href="https://w3c.github.io/webappsec-csp/">https://w3c.github.io/webappsec-csp/</a>
+											<br />
+										
+											<a href="https://web.dev/articles/csp">https://web.dev/articles/csp</a>
+											<br />
+										
+											<a href="https://caniuse.com/#feat=contentsecuritypolicy">https://caniuse.com/#feat=contentsecuritypolicy</a>
+											<br />
+										
+											<a href="https://content-security-policy.com/">https://content-security-policy.com/</a>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Tags</td>
+									<td width="80%">
+
+											
+												<a href="https://cwe.mitre.org/data/definitions/693.html">CWE-693</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a>
+											
+											
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">CWE Id</td>
+									<td width="80%"><a
+										href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+								</tr>
+								<tr>
+									<td width="20%">WASC Id</td>
+									<td width="80%">15</td>
+								</tr>
+								<tr>
+									<td width="20%">Plugin Id</td>
+									<td width="80%"><a
+										href="https://www.zaproxy.org/docs/alerts/10038/">10038</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="spacer"></div>
+					
+						<div class="tableWrapper">
+							<table class="results" cellspacing="0" cellpadding="0">
+								<tr height="24">
+									<th width="20%" class="risk-2"><a
+										id="plugin-10098"></a>
+										<div>Medium</div></th>
+									<th class="risk-2">Cross-Domain Misconfiguration</th>
+								</tr>
+								<tr>
+									<td width="20%">Description</td>
+									<td width="80%">
+											<div>Web browser data loading may be possible, due to a Cross Origin Resource Sharing (CORS) misconfiguration on the web server</div>
+											
+										</td>
+								</tr>
+								<TR vAlign="top">
+									<TD colspan="2"></TD>
+								</TR>
+								
+									<tr>
+										<td width="20%"
+											class="indent1">URL</td>
+										<td width="80%"><a href="http://localhost:3002/api/payments/process">http://localhost:3002/api/payments/process</a></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Method</td>
+										<td width="80%">POST</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Parameter</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Attack</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Evidence</td>
+										<td width="80%">Access-Control-Allow-Origin: *</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">
+											<div id="alert-247">
+												<a
+													onclick="showHide(&#39;alert-247&#39;);"
+													href="#247">Show / hide Request and Response</a>
+											</div>
+										</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Header
+											- size: 284 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-247reqh"
+												style="display: none;">
+												
+													POST http://localhost:3002/api/payments/process HTTP/1.1
+													<br />
+												
+													Content-Type: application/json
+													<br />
+												
+													User-Agent: PostmanRuntime/7.40.0
+													<br />
+												
+													Accept: */*
+													<br />
+												
+													Cache-Control: no-cache
+													<br />
+												
+													Postman-Token: 4df5d0c8-8174-4980-9baa-0918afefd8bf
+													<br />
+												
+													host: localhost:3002
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Content-Length: 74
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Body
+											- size: 74 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-247reqb"
+												style="display: none;">
+												
+													{
+													<br />
+												
+													    &quot;id&quot;: &quot;0709dd5e-159e-4c44-ac9a-a7381a607a6f&quot;,
+													<br />
+												
+													    &quot;status&quot;: &quot;paid&quot;
+													<br />
+												
+													}
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Header
+											- size: 281 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-247resph"
+												style="display: none;">
+												
+													HTTP/1.1 200 OK
+													<br />
+												
+													X-Powered-By: Express
+													<br />
+												
+													Access-Control-Allow-Origin: *
+													<br />
+												
+													Content-Type: text/html; charset=utf-8
+													<br />
+												
+													Content-Length: 2
+													<br />
+												
+													ETag: W/&quot;2-nOO9QiTIwXgNtWtBJezz8kv3SLc&quot;
+													<br />
+												
+													Vary: Accept-Encoding
+													<br />
+												
+													Date: Thu, 08 Aug 2024 12:40:07 GMT
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Keep-Alive: timeout=5
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Body
+											- size: 2 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-247respb"
+												style="display: none;">
+												
+													OK
+													
+												
+											</div>
+										</td>
+									</tr>
+								
+								<tr>
+									<td width="20%">Instances</td>
+									<td width="80%">1</td>
+								</tr>
+								<tr>
+									<td width="20%">Solution</td>
+									<td width="80%">
+											<div>Ensure that sensitive data is not available in an unauthenticated manner (using IP address white-listing, for instance).</div>
+											<br />
+										
+											<div>Configure the &quot;Access-Control-Allow-Origin&quot; HTTP header to a more restrictive set of domains, or remove all CORS headers entirely, to allow the web browser to enforce the Same Origin Policy (SOP) in a more restrictive manner.</div>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Reference</td>
+									<td width="80%">
+											<a href="https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy">https://vulncat.fortify.com/en/detail?id=desc.config.dotnet.html5_overly_permissive_cors_policy</a>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Tags</td>
+									<td width="80%">
+
+											
+												<a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control.html">OWASP_2017_A05</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://cwe.mitre.org/data/definitions/264.html">CWE-264</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a>
+											
+											
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">CWE Id</td>
+									<td width="80%"><a
+										href="https://cwe.mitre.org/data/definitions/264.html">264</a></td>
+								</tr>
+								<tr>
+									<td width="20%">WASC Id</td>
+									<td width="80%">14</td>
+								</tr>
+								<tr>
+									<td width="20%">Plugin Id</td>
+									<td width="80%"><a
+										href="https://www.zaproxy.org/docs/alerts/10098/">10098</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="spacer"></div>
+					
+						<div class="tableWrapper">
+							<table class="results" cellspacing="0" cellpadding="0">
+								<tr height="24">
+									<th width="20%" class="risk-2"><a
+										id="plugin-10020"></a>
+										<div>Medium</div></th>
+									<th class="risk-2">Missing Anti-clickjacking Header</th>
+								</tr>
+								<tr>
+									<td width="20%">Description</td>
+									<td width="80%">
+											<div>The response does not include either Content-Security-Policy with &#39;frame-ancestors&#39; directive or X-Frame-Options to protect against &#39;ClickJacking&#39; attacks.</div>
+											
+										</td>
+								</tr>
+								<TR vAlign="top">
+									<TD colspan="2"></TD>
+								</TR>
+								
+									<tr>
+										<td width="20%"
+											class="indent1">URL</td>
+										<td width="80%"><a href="http://localhost:3002/api/payments/process">http://localhost:3002/api/payments/process</a></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Method</td>
+										<td width="80%">POST</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Parameter</td>
+										<td width="80%">x-frame-options</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Attack</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Evidence</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">
+											<div id="alert-245">
+												<a
+													onclick="showHide(&#39;alert-245&#39;);"
+													href="#245">Show / hide Request and Response</a>
+											</div>
+										</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Header
+											- size: 284 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-245reqh"
+												style="display: none;">
+												
+													POST http://localhost:3002/api/payments/process HTTP/1.1
+													<br />
+												
+													Content-Type: application/json
+													<br />
+												
+													User-Agent: PostmanRuntime/7.40.0
+													<br />
+												
+													Accept: */*
+													<br />
+												
+													Cache-Control: no-cache
+													<br />
+												
+													Postman-Token: 4df5d0c8-8174-4980-9baa-0918afefd8bf
+													<br />
+												
+													host: localhost:3002
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Content-Length: 74
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Body
+											- size: 74 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-245reqb"
+												style="display: none;">
+												
+													{
+													<br />
+												
+													    &quot;id&quot;: &quot;0709dd5e-159e-4c44-ac9a-a7381a607a6f&quot;,
+													<br />
+												
+													    &quot;status&quot;: &quot;paid&quot;
+													<br />
+												
+													}
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Header
+											- size: 281 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-245resph"
+												style="display: none;">
+												
+													HTTP/1.1 200 OK
+													<br />
+												
+													X-Powered-By: Express
+													<br />
+												
+													Access-Control-Allow-Origin: *
+													<br />
+												
+													Content-Type: text/html; charset=utf-8
+													<br />
+												
+													Content-Length: 2
+													<br />
+												
+													ETag: W/&quot;2-nOO9QiTIwXgNtWtBJezz8kv3SLc&quot;
+													<br />
+												
+													Vary: Accept-Encoding
+													<br />
+												
+													Date: Thu, 08 Aug 2024 12:40:07 GMT
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Keep-Alive: timeout=5
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Body
+											- size: 2 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-245respb"
+												style="display: none;">
+												
+													OK
+													
+												
+											</div>
+										</td>
+									</tr>
+								
+								<tr>
+									<td width="20%">Instances</td>
+									<td width="80%">1</td>
+								</tr>
+								<tr>
+									<td width="20%">Solution</td>
+									<td width="80%">
+											<div>Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app.</div>
+											<br />
+										
+											<div>If you expect the page to be framed only by pages on your server (e.g. it&#39;s part of a FRAMESET) then you&#39;ll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy&#39;s &quot;frame-ancestors&quot; directive.</div>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Reference</td>
+									<td width="80%">
+											<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</a>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Tags</td>
+									<td width="80%">
+
+											
+												<a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/11-Client-side_Testing/09-Testing_for_Clickjacking">WSTG-v42-CLNT-09</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://cwe.mitre.org/data/definitions/1021.html">CWE-1021</a>
+											
+											
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">CWE Id</td>
+									<td width="80%"><a
+										href="https://cwe.mitre.org/data/definitions/1021.html">1021</a></td>
+								</tr>
+								<tr>
+									<td width="20%">WASC Id</td>
+									<td width="80%">15</td>
+								</tr>
+								<tr>
+									<td width="20%">Plugin Id</td>
+									<td width="80%"><a
+										href="https://www.zaproxy.org/docs/alerts/10020/">10020</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="spacer"></div>
+					
+						<div class="tableWrapper">
+							<table class="results" cellspacing="0" cellpadding="0">
+								<tr height="24">
+									<th width="20%" class="risk-1"><a
+										id="plugin-10037"></a>
+										<div>Low</div></th>
+									<th class="risk-1">Server Leaks Information via &quot;X-Powered-By&quot; HTTP Response Header Field(s)</th>
+								</tr>
+								<tr>
+									<td width="20%">Description</td>
+									<td width="80%">
+											<div>The web/application server is leaking information via one or more &quot;X-Powered-By&quot; HTTP response headers. Access to such information may facilitate attackers identifying other frameworks/components your web application is reliant upon and the vulnerabilities such components may be subject to.</div>
+											
+										</td>
+								</tr>
+								<TR vAlign="top">
+									<TD colspan="2"></TD>
+								</TR>
+								
+									<tr>
+										<td width="20%"
+											class="indent1">URL</td>
+										<td width="80%"><a href="http://localhost:3002/api/payments/process">http://localhost:3002/api/payments/process</a></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Method</td>
+										<td width="80%">POST</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Parameter</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Attack</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Evidence</td>
+										<td width="80%">X-Powered-By: Express</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">
+											<div id="alert-249">
+												<a
+													onclick="showHide(&#39;alert-249&#39;);"
+													href="#249">Show / hide Request and Response</a>
+											</div>
+										</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Header
+											- size: 284 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-249reqh"
+												style="display: none;">
+												
+													POST http://localhost:3002/api/payments/process HTTP/1.1
+													<br />
+												
+													Content-Type: application/json
+													<br />
+												
+													User-Agent: PostmanRuntime/7.40.0
+													<br />
+												
+													Accept: */*
+													<br />
+												
+													Cache-Control: no-cache
+													<br />
+												
+													Postman-Token: 4df5d0c8-8174-4980-9baa-0918afefd8bf
+													<br />
+												
+													host: localhost:3002
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Content-Length: 74
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Body
+											- size: 74 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-249reqb"
+												style="display: none;">
+												
+													{
+													<br />
+												
+													    &quot;id&quot;: &quot;0709dd5e-159e-4c44-ac9a-a7381a607a6f&quot;,
+													<br />
+												
+													    &quot;status&quot;: &quot;paid&quot;
+													<br />
+												
+													}
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Header
+											- size: 281 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-249resph"
+												style="display: none;">
+												
+													HTTP/1.1 200 OK
+													<br />
+												
+													X-Powered-By: Express
+													<br />
+												
+													Access-Control-Allow-Origin: *
+													<br />
+												
+													Content-Type: text/html; charset=utf-8
+													<br />
+												
+													Content-Length: 2
+													<br />
+												
+													ETag: W/&quot;2-nOO9QiTIwXgNtWtBJezz8kv3SLc&quot;
+													<br />
+												
+													Vary: Accept-Encoding
+													<br />
+												
+													Date: Thu, 08 Aug 2024 12:40:07 GMT
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Keep-Alive: timeout=5
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Body
+											- size: 2 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-249respb"
+												style="display: none;">
+												
+													OK
+													
+												
+											</div>
+										</td>
+									</tr>
+								
+								<tr>
+									<td width="20%">Instances</td>
+									<td width="80%">1</td>
+								</tr>
+								<tr>
+									<td width="20%">Solution</td>
+									<td width="80%">
+											<div>Ensure that your web server, application server, load balancer, etc. is configured to suppress &quot;X-Powered-By&quot; headers.</div>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Reference</td>
+									<td width="80%">
+											<a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework">https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework</a>
+											<br />
+										
+											<a href="https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html">https://www.troyhunt.com/2012/02/shhh-dont-let-your-response-headers.html</a>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Tags</td>
+									<td width="80%">
+
+											
+												<a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP_2021_A01</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure.html">OWASP_2017_A03</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework">WSTG-v42-INFO-08</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://cwe.mitre.org/data/definitions/200.html">CWE-200</a>
+											
+											
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">CWE Id</td>
+									<td width="80%"><a
+										href="https://cwe.mitre.org/data/definitions/200.html">200</a></td>
+								</tr>
+								<tr>
+									<td width="20%">WASC Id</td>
+									<td width="80%">13</td>
+								</tr>
+								<tr>
+									<td width="20%">Plugin Id</td>
+									<td width="80%"><a
+										href="https://www.zaproxy.org/docs/alerts/10037/">10037</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="spacer"></div>
+					
+						<div class="tableWrapper">
+							<table class="results" cellspacing="0" cellpadding="0">
+								<tr height="24">
+									<th width="20%" class="risk-1"><a
+										id="plugin-10021"></a>
+										<div>Low</div></th>
+									<th class="risk-1">X-Content-Type-Options Header Missing</th>
+								</tr>
+								<tr>
+									<td width="20%">Description</td>
+									<td width="80%">
+											<div>The Anti-MIME-Sniffing header X-Content-Type-Options was not set to &#39;nosniff&#39;. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.</div>
+											
+										</td>
+								</tr>
+								<TR vAlign="top">
+									<TD colspan="2"></TD>
+								</TR>
+								
+									<tr>
+										<td width="20%"
+											class="indent1">URL</td>
+										<td width="80%"><a href="http://localhost:3002/api/payments/process">http://localhost:3002/api/payments/process</a></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Method</td>
+										<td width="80%">POST</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Parameter</td>
+										<td width="80%">x-content-type-options</td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Attack</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%"
+											class="indent2">Evidence</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">
+											<div id="alert-248">
+												<a
+													onclick="showHide(&#39;alert-248&#39;);"
+													href="#248">Show / hide Request and Response</a>
+											</div>
+										</td>
+										<td width="80%"></td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Header
+											- size: 284 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-248reqh"
+												style="display: none;">
+												
+													POST http://localhost:3002/api/payments/process HTTP/1.1
+													<br />
+												
+													Content-Type: application/json
+													<br />
+												
+													User-Agent: PostmanRuntime/7.40.0
+													<br />
+												
+													Accept: */*
+													<br />
+												
+													Cache-Control: no-cache
+													<br />
+												
+													Postman-Token: 4df5d0c8-8174-4980-9baa-0918afefd8bf
+													<br />
+												
+													host: localhost:3002
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Content-Length: 74
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Request Body
+											- size: 74 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-248reqb"
+												style="display: none;">
+												
+													{
+													<br />
+												
+													    &quot;id&quot;: &quot;0709dd5e-159e-4c44-ac9a-a7381a607a6f&quot;,
+													<br />
+												
+													    &quot;status&quot;: &quot;paid&quot;
+													<br />
+												
+													}
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Header
+											- size: 281 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-248resph"
+												style="display: none;">
+												
+													HTTP/1.1 200 OK
+													<br />
+												
+													X-Powered-By: Express
+													<br />
+												
+													Access-Control-Allow-Origin: *
+													<br />
+												
+													Content-Type: text/html; charset=utf-8
+													<br />
+												
+													Content-Length: 2
+													<br />
+												
+													ETag: W/&quot;2-nOO9QiTIwXgNtWtBJezz8kv3SLc&quot;
+													<br />
+												
+													Vary: Accept-Encoding
+													<br />
+												
+													Date: Thu, 08 Aug 2024 12:40:07 GMT
+													<br />
+												
+													Connection: keep-alive
+													<br />
+												
+													Keep-Alive: timeout=5
+													<br />
+												
+													
+													
+												
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="20%" class="indent2">Response Body
+											- size: 2 bytes.
+										</td>
+										<td width="80%">
+											<div
+												id="alert-248respb"
+												style="display: none;">
+												
+													OK
+													
+												
+											</div>
+										</td>
+									</tr>
+								
+								<tr>
+									<td width="20%">Instances</td>
+									<td width="80%">1</td>
+								</tr>
+								<tr>
+									<td width="20%">Solution</td>
+									<td width="80%">
+											<div>Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to &#39;nosniff&#39; for all web pages.</div>
+											<br />
+										
+											<div>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.</div>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Reference</td>
+									<td width="80%">
+											<a href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)">https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/gg622941(v=vs.85)</a>
+											<br />
+										
+											<a href="https://owasp.org/www-community/Security_Headers">https://owasp.org/www-community/Security_Headers</a>
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">Tags</td>
+									<td width="80%">
+
+											
+												<a href="https://cwe.mitre.org/data/definitions/693.html">CWE-693</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/Top10/A05_2021-Security_Misconfiguration/">OWASP_2021_A05</a>
+											
+											
+											<br />
+										
+
+											
+												<a href="https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration.html">OWASP_2017_A06</a>
+											
+											
+											
+										</td>
+								</tr>
+								<tr>
+									<td width="20%">CWE Id</td>
+									<td width="80%"><a
+										href="https://cwe.mitre.org/data/definitions/693.html">693</a></td>
+								</tr>
+								<tr>
+									<td width="20%">WASC Id</td>
+									<td width="80%">15</td>
+								</tr>
+								<tr>
+									<td width="20%">Plugin Id</td>
+									<td width="80%"><a
+										href="https://www.zaproxy.org/docs/alerts/10021/">10021</a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="spacer"></div>
+					
+				
+
+				<footer>
+					Report by 
+					<a href="https://www.zaproxy.org/" target="_blank">ZAP</a>
+					
+				</footer>
+
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
